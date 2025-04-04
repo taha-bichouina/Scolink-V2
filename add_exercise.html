@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un Exercice</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc); /* Dégradé de couleurs chaudes */
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            background-attachment: fixed; /* Rendre le fond fixe pour une sensation plus immersive */
+        }
+
+        .dark-mode {
+            background: linear-gradient(135deg, #333, #555); /* Fond sombre pour le mode sombre */
+            color: #e0e0e0;
+        }
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.9); /* Fond légèrement transparent pour un effet plus doux */
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .dark-mode .form-container {
+            background-color: rgba(44, 44, 44, 0.9); /* Version sombre du fond */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .dark-mode .form-header h1 {
+            color: #e0e0e0;
+        }
+
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: inherit;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #42a5f5;
+        }
+
+        .btn-primary {
+            background-color: #42a5f5;
+            border-color: #42a5f5;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            width: 100%;
+            text-transform: uppercase;
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: #1e88e5;
+            border-color: #1e88e5;
+        }
+
+        .dark-mode .btn-primary {
+            background-color: #64b5f6;
+            border-color: #64b5f6;
+        }
+
+        .dark-mode .btn-primary:hover {
+            background-color: #42a5f5;
+        }
+
+        .btn-secondary {
+            background-color: #cfd8dc;
+            border-color: #cfd8dc;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
+            text-transform: uppercase;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background-color: #b0bec5;
+            border-color: #b0bec5;
+        }
+
+        .dark-mode .btn-secondary {
+            background-color: #607d8b;
+            color: #e0e0e0;
+        }
+
+        .dark-mode .btn-secondary:hover {
+            background-color: #546e7a;
+        }
+
+        .toggle-dark-mode {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #333;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .dark-mode .toggle-dark-mode {
+            color: #e0e0e0;
+        }
+
+        .toggle-dark-mode:hover {
+            color: #ffc107;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Toggle Dark Mode -->
+    <button class="toggle-dark-mode" onclick="toggleDarkMode()">
+        <i class="fas fa-moon"></i> Mode sombre
+    </button>
+
+    <div class="form-container">
+        <div class="form-header">
+            <h1>Ajouter un Exercice</h1>
+        </div>
+
+        <!-- Formulaire pour ajouter un exercice -->
+        <form action="{{ url_for('add_exercise') }}" method="POST">
+            <!-- Champ Titre -->
+            <label for="title" class="form-label">Titre de l'Exercice</label>
+            <input type="text" id="title" name="title" class="form-control" placeholder="Saisissez le titre" required>
+
+            <!-- Champ Description -->
+            <label for="description" class="form-label">Description</label>
+            <textarea id="description" name="description" class="form-control" rows="4" placeholder="Décrivez l'exercice" required></textarea>
+
+            <!-- Champ Date -->
+            <label for="due_date" class="form-label">Date d'Échéance</label>
+            <input type="date" id="due_date" name="due_date" class="form-control" required>
+
+            <!-- Bouton Soumettre -->
+            <button type="submit" class="btn btn-primary">Ajouter l'Exercice</button>
+        </form>
+
+        <!-- Lien pour revenir -->
+        <a href="{{ url_for('teacher_dashboard') }}" class="btn btn-secondary mt-3">Retour au Tableau de Bord</a>
+    </div>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
+</body>
+
+</html>
